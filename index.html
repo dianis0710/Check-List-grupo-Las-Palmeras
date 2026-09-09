@@ -103,7 +103,7 @@
     display:flex;
     justify-content:center;
     margin: -20px auto 30px;
-    max-width: 460px;
+    max-width: 620px;
     position:relative;
     z-index:2;
   }
@@ -112,20 +112,66 @@
     background: var(--cream-soft);
     border: 1px solid var(--paper-border);
     color: var(--ink);
-    padding: 14px 10px;
+    padding: 14px 8px;
     cursor:pointer;
     font-family:'Work Sans', sans-serif;
     font-weight:600;
-    font-size:0.92rem;
+    font-size:0.88rem;
     transition: background .2s ease, color .2s ease;
   }
-  .tab-btn:first-child{ border-radius: 10px 0 0 10px; border-right:none; }
+  .tab-btn:not(:last-child){ border-right:none; }
+  .tab-btn:first-child{ border-radius: 10px 0 0 10px; }
   .tab-btn:last-child{ border-radius: 0 10px 10px 0; }
   .tab-btn.active{
     background: var(--marine);
     color: var(--cream);
     border-color: var(--marine);
   }
+
+  /* ===== RECOMENDACIONES (accordion) ===== */
+  .reco-section{
+    background:#fff;
+    border: 1px solid var(--paper-border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow:hidden;
+  }
+  .reco-section summary{
+    padding: 15px 18px;
+    cursor:pointer;
+    font-weight:600;
+    color: var(--marine-deep);
+    list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .reco-section summary::-webkit-details-marker{ display:none; }
+  .reco-section summary::after{
+    content:"+";
+    font-size:1.3rem;
+    color: var(--lagoon);
+    flex-shrink:0;
+    font-family:'Fraunces', serif;
+  }
+  .reco-section[open] summary::after{ content:"–"; }
+  .reco-section[open] summary{ border-bottom: 1px solid var(--paper-border); }
+  .reco-body{ padding: 6px 18px 18px; font-size:0.92rem; line-height:1.55; color:#374252; }
+  .reco-body h4{ font-family:'Work Sans',sans-serif; font-size:0.85rem; color:var(--coral-deep); margin:14px 0 6px; text-transform:uppercase; letter-spacing:0.03em; }
+  .reco-body h4:first-child{ margin-top:6px; }
+  .reco-body ul{ padding-left:20px; margin:4px 0 10px; }
+  .reco-body li{ margin-bottom:4px; }
+  .reco-body a{ color: var(--lagoon); }
+  .reco-body strong{ color: var(--marine-deep); }
+  .reco-body table{ width:100%; border-collapse:collapse; margin:8px 0; font-size:0.88rem; }
+  .reco-body td, .reco-body th{ padding:6px 8px; border-bottom:1px solid var(--cream-soft); text-align:left; }
+
+  .itinerary-strip{ display:flex; flex-direction:column; gap:6px; margin:8px 0 10px; }
+  .itinerary-day{ display:flex; gap:10px; align-items:baseline; font-size:0.9rem; }
+  .itinerary-day .d{ font-weight:600; color:var(--marine-deep); width:52px; flex-shrink:0; }
+  .itinerary-day .loc{ flex:1; }
+  .itinerary-day .t{ color:#8993a3; font-size:0.82rem; }
 
   .view-section{ display:none; }
   .view-section.active{ display:block; }
@@ -321,6 +367,7 @@
   <div class="nav-tabs">
     <button class="tab-btn active" id="btn-crew" onclick="switchTab('crew')">Listas personales</button>
     <button class="tab-btn" id="btn-group" onclick="switchTab('group')">Tareas comunes</button>
+    <button class="tab-btn" id="btn-reco" onclick="switchTab('reco')">Recomendaciones</button>
   </div>
 
   <!-- CREW GRID -->
@@ -359,6 +406,172 @@
     <div id="group-tasks-container"></div>
   </div>
 
+  <!-- RECOMENDACIONES -->
+  <div id="view-reco" class="view-section">
+    <div class="crew-intro" style="text-align:left; margin-bottom:18px;">
+      <h2>Recomendaciones del crucero</h2>
+      <p>Todo lo que salió en la reunión, para consultar cuando lo necesites.</p>
+    </div>
+
+    <details class="reco-section" open>
+      <summary>🧳 Equipaje</summary>
+      <div class="reco-body">
+        <ul>
+          <li>Máximo <strong>90 kg</strong> por persona.</li>
+          <li>Las etiquetas para las maletas las entregan en el puerto (no hay que llevarlas hechas).</li>
+          <li>Se puede meter una botella de vino de 750 ml o un six pack en la maleta grande.</li>
+          <li>En el morral pequeño de mano: cosas importantes y medicamentos que se usan de primeras — las maletas grandes las entregan en el camarote a partir de <strong>las 5 p.m.</strong></li>
+          <li>La habitación (camarote) se entrega aprox. a las <strong>4:30 p.m.</strong></li>
+          <li>Llevar un suéter para las noches.</li>
+          <li>Un termo se puede comprar a bordo por <strong>$5 USD</strong>, o llevar el propio.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>📱 Check-in y app del crucero</summary>
+      <div class="reco-body">
+        <ul>
+          <li>El check-in en línea se habilita <strong>45 días antes</strong> de zarpar.</li>
+          <li>Descargar la app del crucero: sirve para comunicarse entre el grupo, tener internet, ver itinerarios y la programación a bordo.</li>
+          <li>En el check-in se escanea el pasaporte y piden una foto tipo cédula.</li>
+          <li>Al diligenciar los datos: el número de viajero frecuente se deja en blanco si no se tiene.</li>
+          <li>Contacto de emergencia: debe ser alguien que <strong>no</strong> vaya en el crucero. Si el formulario da error, poner solo el primer nombre y el número.</li>
+          <li>Hay que anexar tarjeta de crédito/débito (se recomienda crédito, es más fácil para devoluciones). Cada quien puede registrar la suya, o una sola para todos.</li>
+          <li>Aceptar términos y condiciones.</li>
+          <li><strong>Botón / video del simulacro:</strong> se habilita el día antes de embarcar, hay que verlo. El día del abordaje toca acercarse físicamente al punto de encuentro del simulacro — es obligatorio para que el barco pueda zarpar. Al completarlo, se genera el pase de abordar.</li>
+          <li>Una semana antes se habilita elegir habitación (aleatoria) y el horario de abordaje. Evitar el horario de medio día (casi no hay sombra); llevar agua o usar la estación de hidratación.</li>
+          <li>Las ventas / cambios se cierran <strong>7 días antes</strong> de zarpar.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>📄 Documentación requerida (física)</summary>
+      <div class="reco-body">
+        <ul>
+          <li>Pasaporte vigente — no debe vencerse dentro de los 6 meses siguientes al viaje.</li>
+          <li>Carnet de vacunación internacional — no aplica para mayores de 60 años, a ellos les dan un certificado en su lugar.</li>
+          <li>Permiso de menores de edad (solo si el menor no viaja con ambos padres).</li>
+          <li>2 copias del registro civil autenticado, con vigencia no mayor a 1 mes.</li>
+          <li>Pago del impuesto de salida del país (recomendado hacerlo una semana antes): <a href="https://www.aerocivil.gov.co/publicaciones/3433/pagos-en-linea-impuesto-timbre-para-viajeros-de-cruceros/" target="_blank" rel="noopener">Pagos en línea – Impuesto Timbre para viajeros de cruceros (Aerocivil)</a>.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>🍽️ A bordo: comidas y bebidas</summary>
+      <div class="reco-body">
+        <h4>Restaurantes</h4>
+        <ul>
+          <li><strong>Windjammer:</strong> el buffet principal.</li>
+          <li><strong>Park Café</strong> y helados de dispensador.</li>
+          <li>Restaurante principal para la cena: se reserva turno por la app. Vestimenta elegante.</li>
+          <li>Otros 3 restaurantes no incluidos: se reservan por la app y se pagan aparte.</li>
+        </ul>
+        <h4>Paquete de bebidas</h4>
+        <ul>
+          <li>Incluye bebidas alcohólicas, es por cabina (el grupo ya lo tiene) y se cobra propina extra sobre el consumo.</li>
+        </ul>
+        <h4>Toallas</h4>
+        <ul>
+          <li>Aseo diario del camarote, las toallas se cambian todos los días.</li>
+          <li>En áreas comunes (piscina, etc.) se piden con la tarjeta Seapass y <strong>hay que devolverlas</strong> — si no, cobran $40 USD.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>🎉 Actividades, propinas y wifi</summary>
+      <div class="reco-body">
+        <h4>Actividades</h4>
+        <ul>
+          <li>Fiestas temáticas, concursos y shows — se avisan por la app y por pantallas en el barco.</li>
+          <li>Si alguien no maneja bien la tecnología, se puede pedir el folleto impreso en recepción.</li>
+        </ul>
+        <h4>Propinas</h4>
+        <ul>
+          <li>Se pagan en recepción, en efectivo (en sobre) o con tarjeta.</li>
+          <li>El día antes de terminar el crucero, verificar en recepción que no se haya cargado la propina doble.</li>
+        </ul>
+        <h4>WiFi</h4>
+        <ul>
+          <li>Se puede comprar el internet por un día directamente en el barco, o el paquete completo por la app hasta 8 días antes.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>⚓ Salidas en puerto y desembarque</summary>
+      <div class="reco-body">
+        <ul>
+          <li>Estar de vuelta en el barco <strong>1 hora antes</strong> de la hora de embarque anunciada.</li>
+          <li>No comprar bebidas alcohólicas en puerto para subirlas al barco: las decomisan hasta el día antes de terminar el crucero.</li>
+          <li>Llevar una bolsa ziploc para bajar algo de comer (un sanduchito) — no se permite bajar fruta.</li>
+          <li><strong>Desembarque final:</strong> la app avisa el horario según el grupo asignado. Si alguien tiene vuelo temprano, se puede hablar con administración para desembarcar antes.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>🛡️ Seguro de viaje</summary>
+      <div class="reco-body">
+        <ul>
+          <li>Cobertura hasta <strong>$10.000 USD</strong> durante el crucero y en los puertos.</li>
+          <li>Es reembolsable.</li>
+        </ul>
+        <h4>Costo aproximado por día, por persona</h4>
+        <table>
+          <tr><td>Armando</td><td>$6 USD/día</td></tr>
+          <tr><td>Luz Elena</td><td>$4 USD/día</td></tr>
+          <tr><td>Beatriz</td><td>$4 USD/día</td></tr>
+          <tr><td>Rosalba</td><td>$4 USD/día</td></tr>
+          <tr><td>Martha</td><td>$4 USD/día</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>🏝️ Aruba</summary>
+      <div class="reco-body">
+        <ul>
+          <li>Baby Beach y Eagle Beach.</li>
+          <li>Tren gratuito para recorrer la zona.</li>
+          <li>Tour en jeep y zona histórica.</li>
+          <li>Tours entre $20 y $30 USD por persona — recomendable contratarlos con los operadores que están justo al bajar del barco.</li>
+          <li>Se puede subir y bajar del barco libremente para ir a comer.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>🏝️ Curazao</summary>
+      <div class="reco-body">
+        <ul>
+          <li>Playa Pescado.</li>
+          <li>Cuevas de Hato.</li>
+          <li>Fort Nassau — restaurante esencial, muy recomendado.</li>
+          <li>Punda (centro histórico de Willemstad).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="reco-section">
+      <summary>🗓️ Itinerario</summary>
+      <div class="reco-body">
+        <div class="itinerary-strip">
+          <div class="itinerary-day"><span class="d">Día 1</span><span class="loc">Cartagena, Colombia</span><span class="t">dom 8 nov · todos a bordo 5:30 p.m.</span></div>
+          <div class="itinerary-day"><span class="d">Día 2</span><span class="loc">Día de crucero</span><span class="t">lun 9 nov</span></div>
+          <div class="itinerary-day"><span class="d">Día 3</span><span class="loc">Oranjestad, Aruba</span><span class="t">mar 10 nov · 8:30 a.m. – 10:30 p.m.</span></div>
+          <div class="itinerary-day"><span class="d">Día 4</span><span class="loc">Willemstad, Curazao</span><span class="t">mié 11 nov · 8:30 a.m. – 5:30 p.m.</span></div>
+          <div class="itinerary-day"><span class="d">Día 5</span><span class="loc">Día de crucero</span><span class="t">jue 12 nov</span></div>
+          <div class="itinerary-day"><span class="d">Día 6</span><span class="loc">Día de crucero</span><span class="t">vie 13 nov</span></div>
+          <div class="itinerary-day"><span class="d">Día 7</span><span class="loc">Llegada a Cartagena</span><span class="t">sáb 14 nov · partida 7:30 a.m.</span></div>
+        </div>
+      </div>
+    </details>
+  </div>
+
   <footer>Bitácora de viaje · hecha con ⚓ para la tripulación</footer>
 </div>
 
@@ -367,17 +580,25 @@
 
   const tripulacion = [
     "Edith", "Lina", "Rocío", "Beatriz", "Carolina",
-    "Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana",
+    "Diana", "Isabella", "Luis Miguel", "Maria Juliana",
     "Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"
   ];
 
   const tareasIndividuales = [
-    { cat: "📄 Documentación obligatoria", name: "Carnet de vacunas" },
+    { cat: "📄 Documentación obligatoria", name: "Carnet de vacunas (no aplica a mayores de 60 años)" },
     { cat: "📄 Documentación obligatoria", name: "Biomig" },
-    { cat: "📄 Documentación obligatoria", name: "Vigencia pasaporte" },
+    { cat: "📄 Documentación obligatoria", name: "Vigencia pasaporte (mínimo 6 meses)" },
     { cat: "📄 Documentación obligatoria", name: "Formulario y pago por ingreso a Curazao" },
     { cat: "📄 Documentación obligatoria", name: "Formulario y pago por ingreso a Aruba" },
-    { cat: "✈️ Logística, vuelos y reservas", name: "Pago impuesto aeronáutica" },
+    { cat: "📄 Documentación obligatoria", name: "Permiso de menores de edad (si aplica)" },
+    { cat: "📄 Documentación obligatoria", name: "2 copias del registro civil autenticado (máx. 1 mes)" },
+    { cat: "📱 Check-in y app del crucero", name: "Descargar app del crucero" },
+    { cat: "📱 Check-in y app del crucero", name: "Hacer check-in en línea (se habilita 45 días antes)" },
+    { cat: "📱 Check-in y app del crucero", name: "Registrar tarjeta de crédito/débito" },
+    { cat: "📱 Check-in y app del crucero", name: "Aceptar términos y condiciones" },
+    { cat: "📱 Check-in y app del crucero", name: "Ver video del simulacro (día antes de embarcar)" },
+    { cat: "📱 Check-in y app del crucero", name: "Elegir horario de abordaje (evitar medio día)" },
+    { cat: "✈️ Logística, vuelos y reservas", name: "Pago impuesto de salida / aeronáutica" },
     { cat: "✈️ Logística, vuelos y reservas", name: "Propinas" },
     { cat: "✈️ Logística, vuelos y reservas", name: "Vuelos" },
     { cat: "✈️ Logística, vuelos y reservas", name: "Transporte en tierra" },
@@ -389,13 +610,17 @@
     { cat: "🧳 Equipaje y elementos de cabina", name: "Adaptador de toma y multitoma" },
     { cat: "🧳 Equipaje y elementos de cabina", name: "Ventilador individual" },
     { cat: "🧳 Equipaje y elementos de cabina", name: "Gancho de playa para toalla" },
-    { cat: "🧳 Equipaje y elementos de cabina", name: "Identificador de maleta" }
+    { cat: "🧳 Equipaje y elementos de cabina", name: "Identificador de maleta" },
+    { cat: "🧳 Equipaje y elementos de cabina", name: "Suéter para las noches" },
+    { cat: "🧳 Equipaje y elementos de cabina", name: "Termo (opcional)" }
   ];
 
   // Tareas que le corresponden al grupo como tal, no a cada persona.
   // Agrega aquí más ítems si tu grupo tiene otras tareas compartidas.
   const tareasGrupales = [
-    { name: "Organizar tours" }
+    { name: "Organizar tours en Aruba y Curazao" },
+    { name: "Confirmar paquete de bebidas por cabina" },
+    { name: "Contratar seguro de viaje" }
   ];
 
   let currentUser = null;
@@ -546,6 +771,9 @@
       document.getElementById('view-group').classList.add('active');
       document.getElementById('btn-group').classList.add('active');
       renderGroupTasks();
+    } else if(tab === 'reco'){
+      document.getElementById('view-reco').classList.add('active');
+      document.getElementById('btn-reco').classList.add('active');
     }
   }
 
