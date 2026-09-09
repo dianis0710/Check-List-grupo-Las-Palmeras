@@ -3,185 +3,278 @@ html<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora de Crucero 🚢 Caribe 2026</title>
+    <title>Bitácora de Viaje: ¡Nos vamos de Crucero!</title>
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
-            --primary: #0077b6;
-            --secondary: #00b4d8;
-            --light-blue: #caf0f8;
-            --dark: #03045e;
-            --white: #ffffff;
-            --success: #2a9d8f;
+            --ocean-blue: #023e8a;
+            --caribbean-turquoise: #00b4d8;
+            --sand-beach: #fff3b0;
+            --coral-orange: #f26419;
+            --foam-white: #f8f9fa;
+            --dark-navy: #03045e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(180deg, var(--light-blue) 0%, var(--white) 100%);
-            color: var(--dark);
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(180deg, #caf0f8 0%, #eaf4f4 100%);
+            color: #333;
             min-height: 100vh;
+            padding-bottom: 50px;
         }
 
         header {
-            background-color: var(--primary);
-            color: var(--white);
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--ocean-blue) 100%);
+            color: white;
             text-align: center;
-            padding: 2rem 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            border-bottom: 5px solid var(--caribbean-turquoise);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             position: relative;
         }
 
-        header h1 { margin: 0; font-size: 2.2rem; }
-        header p { margin: 0.5rem 0 0 0; opacity: 0.9; }
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-        #countdown {
-            background: var(--dark);
-            color: #ffe66d;
-            padding: 0.8rem;
-            font-weight: bold;
-            font-size: 1.2rem;
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .countdown-container {
+            background: #03045e;
+            color: #fff3b0;
+            display: block;
             text-align: center;
-            letter-spacing: 1px;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 3px solid var(--coral-orange);
         }
 
         .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         .nav-tabs {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 2rem;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
         .tab-btn {
-            background: var(--white);
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
+            background: white;
+            border: 2px solid var(--caribbean-turquoise);
+            color: var(--dark-navy);
+            padding: 12px 25px;
+            border-radius: 30px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .tab-btn.active, .tab-btn:hover {
-            background: var(--primary);
-            color: var(--white);
+        .tab-btn.active {
+            background: var(--caribbean-turquoise);
+            color: white;
+            border-color: var(--caribbean-turquoise);
         }
 
-        .section-panel { display: none; }
-        .section-panel.active { display: block; }
+        .view-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
 
-        /* Vista de Inicio / Integrantes */
-        .grid-members {
+        .view-section.active {
+            display: block;
+        }
+
+        .crew-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
         }
 
-        .member-card {
-            background: var(--white);
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 12px;
-            padding: 1.5rem;
+        .crew-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.25s ease;
         }
 
-        .member-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,77,182,0.15);
+        .crew-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--caribbean-turquoise);
+            box-shadow: 0 10px 20px rgba(0,180,216,0.15);
         }
 
-        .member-card h3 { margin: 0 0 0.5rem 0; color: var(--primary); }
+        .crew-avatar {
+            width: 65px;
+            height: 65px;
+            background: #e0f2fe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            margin: 0 auto 12px;
+        }
+
+        .crew-name {
+            font-weight: 600;
+            color: var(--dark-navy);
+            font-size: 1.05rem;
+        }
 
         .progress-bar-container {
-            background: #e0e0e0;
+            background-color: #edf2f7;
             border-radius: 10px;
-            height: 8px;
             overflow: hidden;
-            margin-top: 8px;
+            height: 12px;
+            width: 100%;
+            margin-top: 10px;
         }
 
         .progress-bar {
-            background: var(--success);
+            background: linear-gradient(90deg, var(--caribbean-turquoise) 0%, var(--ocean-blue) 100%);
             height: 100%;
             width: 0%;
-            transition: width 0.3s;
+            transition: width 0.4s ease;
         }
 
-        /* Vista Checklist */
-        .checklist-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.5rem;
+        .progress-text {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 6px;
+            font-weight: 500;
         }
 
         .back-btn {
-            background: var(--secondary);
-            color: white;
+            background: #edf2f7;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            color: var(--dark-navy);
+            font-weight: 600;
             cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
         }
 
-        .task-group {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-bottom: 1.5rem;
+        .back-btn:hover {
+            background: #e2e8f0;
         }
 
-        .task-group h3 {
-            margin-top: 0;
-            color: var(--primary);
-            border-bottom: 1px solid var(--light-blue);
-            padding-bottom: 0.3rem;
-        }
-
-        .task-item {
+        .profile-header {
             display: flex;
             align-items: center;
-            padding: 0.7rem 0;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
+            gap: 20px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .task-item:last-child { border-bottom: none; }
+        .task-group-title {
+            color: var(--dark-navy);
+            margin: 25px 0 12px;
+            font-size: 1.15rem;
+            border-left: 5px solid var(--coral-orange);
+            padding-left: 10px;
+        }
 
-        .task-item input {
-            width: 20px;
-            height: 20px;
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border: 1px solid #edf2f7;
+            transition: all 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: #f0fdfa;
+            border-color: #b2f5ea;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
             margin-right: 15px;
             cursor: pointer;
+            accent-color: var(--caribbean-turquoise);
         }
 
-        .task-item.completed span {
+        .checklist-item label {
+            cursor: pointer;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            user-select: none;
+        }
+
+        .checklist-item.completed {
+            background: #f1f5f9;
+        }
+
+        .checklist-item.completed label {
             text-decoration: line-through;
-            color: #888;
+            color: #94a3b8;
         }
 
-        .stats-box {
-            background: var(--dark);
-            color: white;
-            padding: 1rem;
+        .info-card {
+            background: #fffbeb;
+            border-left: 4px solid #fbbf24;
+            padding: 15px;
+            margin-top: 30px;
             border-radius: 8px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-around;
+            font-size: 0.9rem;
+            color: #78350f;
+        }
+
+        .section-title-container {
             text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-title-container h2 {
+            color: var(--dark-navy);
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.7rem; }
+            .nav-tabs { flex-direction: row; gap: 8px; }
+            .tab-btn { padding: 8px 16px; font-size: 0.85rem; }
+            .view-section { padding: 20px 15px; }
         }
     </style>
 </head>
@@ -191,122 +284,56 @@ html<!DOCTYPE html>
         <h1>🚢 ¡Rumbo al Caribe! ⚓</h1>
         <p>Coordinación y Preparativos de nuestro Crucero</p>
     </header>
-
-    <div id="countdown">Cargando cuenta regresiva...</div>
+    
+    <div class="countdown-container" id="countdown">Calculando tiempo restante para zarpar...</div>
 
     <div class="container">
-        <!-- Navegación -->
+        <!-- Pestañas Principales -->
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('personal')">👥 Listas Personales</button>
-            <button class="tab-btn" onclick="switchTab('comun')">📦 Tareas Comunes</button>
+            <button class="tab-btn active" id="btn-crew" onclick="switchTab('crew')">👥 Listas Personales</button>
+            <button class="tab-btn" id="btn-group" onclick="switchTab('group')">📦 Tareas Comunes</button>
         </div>
 
-        <!-- SECCIÓN PERSONAL -->
-        <div id="panel-personal" class="section-panel active">
-            <!-- Vista de Selección de Miembros -->
-            <div id="view-members">
-                <h2 style="text-align: center; margin-bottom: 1.5rem;">Selecciona tu nombre:</h2>
-                <div class="grid-members" id="members-container"></div>
+        <!-- VISTA 1: GRILLA DE TRIPULANTES -->
+        <div id="view-crew" class="view-section active">
+            <div class="section-title-container">
+                <h2>Selecciona tu nombre:</h2>
+            </div>
+            <div class="crew-grid" id="crew-grid"></div>
+        </div>
+
+        <!-- VISTA 2: LISTA DE CHEQUEO PERSONAL -->
+        <div id="view-individual" class="view-section">
+            <button class="back-btn" onclick="switchTab('crew')">⬅ Volver a la lista general</button>
+            <div class="profile-header">
+                <div class="crew-avatar" id="active-avatar">🌴</div>
+                <div style="flex-grow: 1;">
+                    <h2 id="active-user-name">Nombre</h2>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="active-progress-bar"></div>
+                    </div>
+                    <div class="progress-text" id="active-progress-text">0% completado</div>
+                </div>
             </div>
 
-            <!-- Vista del Checklist Individual -->
-            <div id="view-checklist" style="display: none;">
-                <div class="checklist-header">
-                    <button class="back-btn" onclick="showMembersView()">⬅️ Volver al Inicio</button>
-                    <h2 id="current-member-name" style="margin: 0; color: var(--dark);"></h2>
-                </div>
+            <div id="individual-tasks-container"></div>
 
-                <div class="stats-box">
-                    <div>
-                        <strong id="stat-completed" style="font-size: 1.5rem; color: #ffe66d;">0</strong>
-                        <div>Listas</div>
-                    </div>
-                    <div>
-                        <strong id="stat-pending" style="font-size: 1.5rem; color: #ff6b6b;">0</strong>
-                        <div>Pendientes</div>
-                    </div>
-                </div>
-
-                <div id="individual-tasks-container"></div>
+            <div class="info-card">
+                💡 <strong>Recordatorio del Grupo:</strong> Por favor mantengan al día sus documentos. ¡Cada check ayuda a que el grupo sepa que estamos listos para disfrutar!
             </div>
         </div>
 
-        <!-- SECCIÓN COMÚN -->
-        <div id="panel-comun" class="section-panel">
-            <div class="task-group">
-                <h3>📌 Tareas Generales del Grupo</h3>
-                <div id="common-tasks-container"></div>
+        <!-- VISTA 3: TAREAS COMPARTIDAS -->
+        <div id="view-group" class="view-section">
+            <div class="section-title-container">
+                <h2>📦 Tareas Comunes del Grupo</h2>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 5px;">Estas tareas son de interés logístico general y no afectan tu progreso individual.</p>
             </div>
+            <div id="group-tasks-container" style="margin-top: 20px;"></div>
         </div>
     </div>
 
     <script>
-        // Configuración de Datos
-        const fechaZarpe = new Date("November 8, 2026 00:00:00").getTime();
-        
-        const integrantes = [
-            "Edith", "Lina", "Rocío", "Beatriz", "Carolina", 
-            "Diana (yo)", "Isabella", "Luis Miguel", "Maria Juliana", 
-            "Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"
-        ];
-
-        const tareasPersonales = {
-            "📄 Documentación y Requisitos": [
-                "Carnet de vacunas", "Biomig", "Vigencia pasaporte", 
-                "Formulario y pago por ingreso Curazao", "Formulario y pago por ingreso Aruba"
-            ],
-            "💰 Pagos y Logística": [
-                "Pago impuesto aeronautica", "Propinas", "Vuelos", 
-                "Transporte en tierra", "Alojamientos adicionales"
-            ],
-            "🧳 Maleta y Eventos": [
-                "Organizar tours", "Pinta blanca", "Pinta tropical", "Pinta elegante"
-            ],
-            "🔌 Accesorios Esenciales": [
-                "Equipaje en general", "Adaptador de toma y multitoma", 
-                "Ventilador individual", "Gancho de playa para toalla", "Identificador de maleta"
-            ]
-        };
-
-        const tareasComunes = [
-            "Definir itinerario grupal de Tours",
-            "Reservar cenas temáticas grupales",
-            "Cuota inicial fondo común de emergencias",
-            "Confirmar horarios de vuelos de todo el grupo",
-            "Crear grupo oficial de alertas rápidas"
-        ];
-
-        let currentMember = "";
-
-        // Inicialización
-        document.addEventListener("DOMContentLoaded", () => {
-            initCountdown();
-            renderMembers();
-            renderCommonTasks();
-        });
-
-        // Cuenta Regresiva
-        function initCountdown() {
-            setInterval(() => {
-                const ahora = new Date().getTime();
-                const diferencia = fechaZarpe - ahora;
-
-                if (diferencia < 0) {
-                    document.getElementById("countdown").innerText = "🚢 ¡EL CRUCERO HA ZARPADO! 🎉";
-                    return;
-                }
-
-                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-
-                document.getElementById("countdown").innerText = `⏳ FALTAN: ${dias} días, ${horas} horas y ${minutos} min para zarpar`;
-            }, 1000);
-        }
-
-        // Pestañas Principales
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.section-panel').forEach(panel => panel.classList.remove('active'));
-            
-Usa el código con precaución.if(tab === 'personal') {document.querySelectorAll('.tab-btn')[0].classList.add('active');document.getElementById('panel-personal').classList.add('active');} else {document.querySelectorAll('.tab-btn')[1].classList.add('active');document.getElementById('panel-comun').classList.add('active');}}// Renderizar Integrantesfunction renderMembers() {const container = document.getElementById("members-container");container.innerHTML = "";integrantes.forEach(m => {const pct = getCompletionPercentage(m);const card = document.createElement("div");card.className = "member-card";card.onclick = () => showChecklist(m);card.innerHTML = <h3>${m}</h3> <div style="font-size: 0.85rem; color:#666;">Progreso: ${pct}%</div> <div class="progress-bar-container"> <div class="progress-bar" style="width: ${pct}%"></div> </div>;container.appendChild(card);});}// Calcular porcentaje individualfunction getCompletionPercentage(member) {let total = 0;let completadas = 0;Object.values(tareasPersonales).forEach(list => {list.forEach(t => {total++;if(localStorage.getItem(${member}-${t}) === "true") completadas++;});});return total === 0 ? 0 : Math.round((completadas / total) * 100);}// Mostrar Checklist de un miembrofunction showChecklist(member) {currentMember = member;document.getElementById("view-members").style.display = "none";document.getElementById("view-checklist").style.display = "block";document.getElementById("current-member-name").innerText = 📋 Lista de ${member};renderIndividualTasks();}function showMembersView() {document.getElementById("view-checklist").style.display = "none";document.getElementById("view-members").style.display = "block";renderMembers();}// Renderizar tareas del miembro activofunction renderIndividualTasks() {const container = document.getElementById("individual-tasks-container");container.innerHTML = "";let total = 0, completadas = 0;Object.entries(tareasPersonales).forEach(([categoria, tareas]) => {const groupDiv = document.createElement("div");groupDiv.className = "task-group";groupDiv.innerHTML = <h3>${categoria}</h3>;tareas.forEach(t => {total++;const isChecked = localStorage.getItem(${currentMember}-${t}) === "true";if(isChecked) completadas++;const item = document.createElement("div");item.className = task-item ${isChecked ? 'completed' : ''};item.innerHTML = <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleTask('${t}', this)"> <span>${t}</span>;groupDiv.appendChild(item);});container.appendChild(groupDiv);});document.getElementById("stat-completed").innerText = completadas;document.getElementById("stat-pending").innerText = total - completadas;}function toggleTask(taskName, checkbox) {localStorage.setItem(${currentMember}-${taskName}, checkbox.checked);checkbox.parentElement.classList.toggle('completed', checkbox.checked);// Recalcular contadores rápidoslet total = 0, completadas = 0;Object.values(tareasPersonales).forEach(list => {list.forEach(t => {total++;if(localStorage.getItem(${currentMember}-${t}) === "true") completadas++;});});document.getElementById("stat-completed").innerText = completadas;document.getElementById("stat-pending").innerText = total - completadas;}// Renderizar Tareas Comunesfunction renderCommonTasks() {const container = document.getElementById("common-tasks-container");container.innerHTML = "";tareasComunes.forEach(t => {const isChecked = localStorage.getItem(comun-${t}) === "true";const item = document.createElement("div");item.className = task-item ${isChecked ? 'completed' : ''};item.innerHTML = <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleCommonTask('${t}', this)"> <span>${t}</span>;container.appendChild(item);});}function toggleCommonTask(taskName, checkbox) {localStorage.setItem(comun-${taskName}, checkbox.checked);checkbox.parentElement.classList.toggle('completed', checkbox.checked);}
+        // Listado exacto brindado por el usuario
+        const tripulacion = [
+Usa el código con precaución."Edith", "Lina", "Rocío", "Beatriz", "Carolina","Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana","Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"];const tareasIndividuales = [{ cat: "📄 Documentación Obligatoria", name: "Carnet de vacunas" },{ cat: "📄 Documentación Obligatoria", name: "Biomig" },{ cat: "📄 Documentación Obligatoria", name: "Vigencia pasaporte" },{ cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Curazao" },{ cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Aruba" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Pago impuesto aeronáutica" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Propinas" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Vuelos" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Transporte en tierra" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Alojamientos adicionales" },{ cat: "👗 Vestuario para Eventos", name: "Pinta blanca" },{ cat: "👗 Vestuario para Eventos", name: "Pinta tropical" },{ cat: "👗 Vestuario para Eventos", name: "Pinta elegante" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Equipaje en general" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Adaptador de toma y multitoma" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Ventilador individual" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Gancho de playa para toalla" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Identificador de maleta" }];const tareasGrupales = ["Organizar tours","Consolidar itinerario unificado de traslados","Coordinar puntos de encuentro en aeropuertos / puerto","Verificar botiquín médico común del grupo"];let usuarioActivo = "";// Inicialización robusta de bases de datos localesfunction initStorage() {if (!localStorage.getItem('crucero_ind_v2')) {const copiaInd = {};tripulacion.forEach(p => {copiaInd[p] = {};tareasIndividuales.forEach(t => copiaInd[p][t.name] = false);});localStorage.setItem('crucero_ind_v2', JSON.stringify(copiaInd));}if (!localStorage.getItem('crucero_grp_v2')) {const copiaGrp = {};tareasGrupales.forEach(t => copiaGrp[t] = false);localStorage.setItem('crucero_grp_v2', JSON.stringify(copiaGrp));}}// Sistema de Cuenta Regresiva dinámico y seguro (Ajustado al año en curso)function ejecutarCuentaRegresiva() {const añoActual = new Date().getFullYear();// Si ya pasó noviembre de este año, apunta automáticamente al siguiente ciclolet añoDestino = añoActual;if (new Date().getMonth() > 10 || (new Date().getMonth() === 10 && new Date().getDate() > 8)) {añoDestino = añoActual + 1;}const fechaZarpe = new Date(November 8, ${añoDestino} 00:00:00).getTime();function actualizar() {const ahora = new Date().getTime();const distancia = fechaZarpe - ahora;if (distancia < 0) {document.getElementById("countdown").innerHTML = "🚢 ¡DÍA DE ZARPAR! El crucero ha iniciado su aventura al Caribe.";return;}const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));document.getElementById("countdown").innerHTML = ⏳ ¡Zarpamos el 8 de Noviembre! Faltan ${dias} días, ${horas} horas y ${minutos} min;}actualizar();setInterval(actualizar, 60000);}// Renderizado de las tarjetas de los compañerosfunction dibujarGrillaCompañeros() {const grid = document.getElementById('crew-grid');grid.innerHTML = "";const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));tripulacion.forEach(nombre => {const tareasUsuario = db[nombre] || {};const total = tareasIndividuales.length;const completadas = Object.values(tareasUsuario).filter(v => v === true).length;const porcentaje = Math.round((completadas / total) * 100);let avatar = "🌴";if (nombre.includes("Yo")) avatar = "🌊";if (["Luis Miguel", "Andres", "Armando"].includes(nombre)) avatar = "⚓";const card = document.createElement('div');card.className = "crew-card";card.onclick = () => verChecklistDe(nombre);card.innerHTML = <div class="crew-avatar">${avatar}</div> <div class="crew-name">${nombre}</div> <div class="progress-bar-container"> <div class="progress-bar" style="width: ${porcentaje}%"></div> </div> <div class="progress-text">${completadas}/${total} (${porcentaje}%)</div>;grid.appendChild(card);});}// Cambiar entre secciones de forma segurafunction switchTab(vista) {document.getElementById('view-crew').classList.remove('active');document.getElementById('view-individual').classList.remove('active');document.getElementById('view-group').classList.remove('active');document.getElementById('btn-crew').classList.remove('active');document.getElementById('btn-group').classList.remove('active');if (vista === 'crew') {document.getElementById('view-crew').classList.add('active');document.getElementById('btn-crew').classList.add('active');dibujarGrillaCompañeros();} else if (vista === 'group') {document.getElementById('view-group').classList.add('active');document.getElementById('btn-group').classList.add('active');dibujarTareasGrupales();} else if (vista === 'individual') {document.getElementById('view-individual').classList.add('active');}}// Desplegar checklist personalfunction verChecklistDe(nombre) {usuarioActivo = nombre;document.getElementById('active-user-name').innerText = nombre;let avatar = "🌴";if (nombre.includes("Yo")) avatar = "🌊";if (["Luis Miguel", "Andres", "Armando"].includes(nombre)) avatar = "⚓";document.getElementById('active-avatar').innerText = avatar;switchTab('individual');dibujarTareasIndividuales();}// Construir listado con categorías estéticasfunction dibujarTareasIndividuales() {const container = document.getElementById('individual-tasks-container');container.innerHTML = "";const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));const misTareas = db[usuarioActivo];const categorias = [...new Set(tareasIndividuales.map(t => t.cat))];categorias.forEach(cat => {const headerCat = document.createElement('h3');headerCat.className = "task-group-title";headerCat.innerText = cat;container.appendChild(headerCat);const filtradas = tareasIndividuales.filter(t => t.cat === cat);filtradas.forEach(t => {const completada = misTareas[t.name] || false;const item = document.createElement('div');item.className = checklist-item ${completada ? 'completed' : ''};item.innerHTML = `<input type="checkbox" id="check-${t.name}" ${completada ? 'checked' : ''}onchange="cambiarEstadoIndividual('${t.name}', this.checked)">${t.name}`;container.appendChild(item);});});actualizarProgresoCabecera();}function cambiarEstadoIndividual(nombreTarea, marcado) {const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));db[usuarioActivo][nombreTarea] = marcado;localStorage.setItem('crucero_ind_v2', JSON.stringify(db));dibujarTareasIndividuales();}function actualizarProgresoCabecera() {const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));const misTareas = db[usuarioActivo];const total = tareasIndividuales.length;const completadas = Object.values(misTareas).filter(v => v === true).length;const porcentaje = Math.round((completadas / total) * 100);document.getElementById('active-progress-bar').style.width = porcentaje + "%";document.getElementById('active-progress-text').innerText = ${completadas} de ${total} completadas (${porcentaje}%);}// Manejo de Tareas Comunesfunction dibujarTareasGrupales() {const container = document.getElementById('group-tasks-container');container.innerHTML = "";const db = JSON.parse(localStorage.getItem('crucero_grp_v2'));tareasGrupales.forEach(t => {const completada = db[t] || false;const item = document.createElement('div');item.className = checklist-item ${completada ? 'completed' : ''};item.innerHTML = `<input type="checkbox" id="grp-${t}" ${completada ? 'checked' : ''}onchange="cambiarEstadoGrupal('${t}', this.checked)">${t}`;container.appendChild(item);});}function cambiarEstadoGrupal(nombreTarea, marcado) {const db = JSON.parse(localStorage.getItem('crucero_grp_v2'));db[nombreTarea] = marcado;localStorage.setItem('crucero_grp_v2', JSON.stringify(db));dibujarTareasGrupales();}// Ejecución al iniciarinitStorage();ejecutarCuentaRegresiva();dibujarGrillaCompañeros();
