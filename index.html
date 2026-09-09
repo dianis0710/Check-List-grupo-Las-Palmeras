@@ -1,4 +1,4 @@
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -36,7 +36,6 @@ html<!DOCTYPE html>
             padding: 40px 20px;
             border-bottom: 5px solid var(--caribbean-turquoise);
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            position: relative;
         }
 
         header h1 {
@@ -110,7 +109,7 @@ html<!DOCTYPE html>
 
         .crew-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
             margin-top: 25px;
         }
@@ -185,20 +184,6 @@ html<!DOCTYPE html>
             gap: 6px;
             margin-bottom: 20px;
             font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover {
-            background: #e2e8f0;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border-bottom: 2px solid #edf2f7;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
         }
 
         .task-group-title {
@@ -218,12 +203,6 @@ html<!DOCTYPE html>
             margin-bottom: 8px;
             cursor: pointer;
             border: 1px solid #edf2f7;
-            transition: all 0.2s;
-        }
-
-        .checklist-item:hover {
-            background: #f0fdfa;
-            border-color: #b2f5ea;
         }
 
         .checklist-item input[type="checkbox"] {
@@ -231,14 +210,12 @@ html<!DOCTYPE html>
             height: 22px;
             margin-right: 15px;
             cursor: pointer;
-            accent-color: var(--caribbean-turquoise);
         }
 
         .checklist-item label {
             cursor: pointer;
             flex-grow: 1;
             font-size: 0.95rem;
-            user-select: none;
         }
 
         .checklist-item.completed {
@@ -259,23 +236,6 @@ html<!DOCTYPE html>
             font-size: 0.9rem;
             color: #78350f;
         }
-
-        .section-title-container {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .section-title-container h2 {
-            color: var(--dark-navy);
-            font-size: 1.5rem;
-        }
-
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.7rem; }
-            .nav-tabs { flex-direction: row; gap: 8px; }
-            .tab-btn { padding: 8px 16px; font-size: 0.85rem; }
-            .view-section { padding: 20px 15px; }
-        }
     </style>
 </head>
 <body>
@@ -285,24 +245,21 @@ html<!DOCTYPE html>
         <p>Coordinación y Preparativos de nuestro Crucero</p>
     </header>
     
-    <div class="countdown-container" id="countdown">Calculando tiempo restante para zarpar...</div>
+    <div class="countdown-container" id="countdown">⏳ ¡Nos vemos el 8 de Noviembre! Preparando motores...</div>
 
     <div class="container">
-        <!-- Pestañas Principales -->
         <div class="nav-tabs">
             <button class="tab-btn active" id="btn-crew" onclick="switchTab('crew')">👥 Listas Personales</button>
             <button class="tab-btn" id="btn-group" onclick="switchTab('group')">📦 Tareas Comunes</button>
         </div>
 
-        <!-- VISTA 1: GRILLA DE TRIPULANTES -->
+        <!-- VISTA TRIPULACIÓN -->
         <div id="view-crew" class="view-section active">
-            <div class="section-title-container">
-                <h2>Selecciona tu nombre:</h2>
-            </div>
+            <h2 style="text-align: center; color: var(--dark-navy);">Selecciona tu nombre:</h2>
             <div class="crew-grid" id="crew-grid"></div>
         </div>
 
-        <!-- VISTA 2: LISTA DE CHEQUEO PERSONAL -->
+        <!-- VISTA INDIVIDUAL -->
         <div id="view-individual" class="view-section">
             <button class="back-btn" onclick="switchTab('crew')">⬅ Volver a la lista general</button>
             <div class="profile-header">
@@ -315,25 +272,38 @@ html<!DOCTYPE html>
                     <div class="progress-text" id="active-progress-text">0% completado</div>
                 </div>
             </div>
-
             <div id="individual-tasks-container"></div>
-
-            <div class="info-card">
-                💡 <strong>Recordatorio del Grupo:</strong> Por favor mantengan al día sus documentos. ¡Cada check ayuda a que el grupo sepa que estamos listos para disfrutar!
-            </div>
         </div>
 
-        <!-- VISTA 3: TAREAS COMPARTIDAS -->
+        <!-- VISTA GRUPAL -->
         <div id="view-group" class="view-section">
-            <div class="section-title-container">
-                <h2>📦 Tareas Comunes del Grupo</h2>
-                <p style="color: #666; font-size: 0.9rem; margin-top: 5px;">Estas tareas son de interés logístico general y no afectan tu progreso individual.</p>
-            </div>
-            <div id="group-tasks-container" style="margin-top: 20px;"></div>
+            <h2 style="color: var(--dark-navy); margin-bottom: 10px;">📦 Tareas Comunes del Grupo</h2>
+            <div id="group-tasks-container"></div>
         </div>
     </div>
 
     <script>
-        // Listado exacto brindado por el usuario
         const tripulacion = [
-Usa el código con precaución."Edith", "Lina", "Rocío", "Beatriz", "Carolina","Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana","Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"];const tareasIndividuales = [{ cat: "📄 Documentación Obligatoria", name: "Carnet de vacunas" },{ cat: "📄 Documentación Obligatoria", name: "Biomig" },{ cat: "📄 Documentación Obligatoria", name: "Vigencia pasaporte" },{ cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Curazao" },{ cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Aruba" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Pago impuesto aeronáutica" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Propinas" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Vuelos" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Transporte en tierra" },{ cat: "✈️ Logística, Vuelos y Reservas", name: "Alojamientos adicionales" },{ cat: "👗 Vestuario para Eventos", name: "Pinta blanca" },{ cat: "👗 Vestuario para Eventos", name: "Pinta tropical" },{ cat: "👗 Vestuario para Eventos", name: "Pinta elegante" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Equipaje en general" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Adaptador de toma y multitoma" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Ventilador individual" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Gancho de playa para toalla" },{ cat: "🧳 Equipaje y Elementos de Cabina", name: "Identificador de maleta" }];const tareasGrupales = ["Organizar tours","Consolidar itinerario unificado de traslados","Coordinar puntos de encuentro en aeropuertos / puerto","Verificar botiquín médico común del grupo"];let usuarioActivo = "";// Inicialización robusta de bases de datos localesfunction initStorage() {if (!localStorage.getItem('crucero_ind_v2')) {const copiaInd = {};tripulacion.forEach(p => {copiaInd[p] = {};tareasIndividuales.forEach(t => copiaInd[p][t.name] = false);});localStorage.setItem('crucero_ind_v2', JSON.stringify(copiaInd));}if (!localStorage.getItem('crucero_grp_v2')) {const copiaGrp = {};tareasGrupales.forEach(t => copiaGrp[t] = false);localStorage.setItem('crucero_grp_v2', JSON.stringify(copiaGrp));}}// Sistema de Cuenta Regresiva dinámico y seguro (Ajustado al año en curso)function ejecutarCuentaRegresiva() {const añoActual = new Date().getFullYear();// Si ya pasó noviembre de este año, apunta automáticamente al siguiente ciclolet añoDestino = añoActual;if (new Date().getMonth() > 10 || (new Date().getMonth() === 10 && new Date().getDate() > 8)) {añoDestino = añoActual + 1;}const fechaZarpe = new Date(November 8, ${añoDestino} 00:00:00).getTime();function actualizar() {const ahora = new Date().getTime();const distancia = fechaZarpe - ahora;if (distancia < 0) {document.getElementById("countdown").innerHTML = "🚢 ¡DÍA DE ZARPAR! El crucero ha iniciado su aventura al Caribe.";return;}const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));document.getElementById("countdown").innerHTML = ⏳ ¡Zarpamos el 8 de Noviembre! Faltan ${dias} días, ${horas} horas y ${minutos} min;}actualizar();setInterval(actualizar, 60000);}// Renderizado de las tarjetas de los compañerosfunction dibujarGrillaCompañeros() {const grid = document.getElementById('crew-grid');grid.innerHTML = "";const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));tripulacion.forEach(nombre => {const tareasUsuario = db[nombre] || {};const total = tareasIndividuales.length;const completadas = Object.values(tareasUsuario).filter(v => v === true).length;const porcentaje = Math.round((completadas / total) * 100);let avatar = "🌴";if (nombre.includes("Yo")) avatar = "🌊";if (["Luis Miguel", "Andres", "Armando"].includes(nombre)) avatar = "⚓";const card = document.createElement('div');card.className = "crew-card";card.onclick = () => verChecklistDe(nombre);card.innerHTML = <div class="crew-avatar">${avatar}</div> <div class="crew-name">${nombre}</div> <div class="progress-bar-container"> <div class="progress-bar" style="width: ${porcentaje}%"></div> </div> <div class="progress-text">${completadas}/${total} (${porcentaje}%)</div>;grid.appendChild(card);});}// Cambiar entre secciones de forma segurafunction switchTab(vista) {document.getElementById('view-crew').classList.remove('active');document.getElementById('view-individual').classList.remove('active');document.getElementById('view-group').classList.remove('active');document.getElementById('btn-crew').classList.remove('active');document.getElementById('btn-group').classList.remove('active');if (vista === 'crew') {document.getElementById('view-crew').classList.add('active');document.getElementById('btn-crew').classList.add('active');dibujarGrillaCompañeros();} else if (vista === 'group') {document.getElementById('view-group').classList.add('active');document.getElementById('btn-group').classList.add('active');dibujarTareasGrupales();} else if (vista === 'individual') {document.getElementById('view-individual').classList.add('active');}}// Desplegar checklist personalfunction verChecklistDe(nombre) {usuarioActivo = nombre;document.getElementById('active-user-name').innerText = nombre;let avatar = "🌴";if (nombre.includes("Yo")) avatar = "🌊";if (["Luis Miguel", "Andres", "Armando"].includes(nombre)) avatar = "⚓";document.getElementById('active-avatar').innerText = avatar;switchTab('individual');dibujarTareasIndividuales();}// Construir listado con categorías estéticasfunction dibujarTareasIndividuales() {const container = document.getElementById('individual-tasks-container');container.innerHTML = "";const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));const misTareas = db[usuarioActivo];const categorias = [...new Set(tareasIndividuales.map(t => t.cat))];categorias.forEach(cat => {const headerCat = document.createElement('h3');headerCat.className = "task-group-title";headerCat.innerText = cat;container.appendChild(headerCat);const filtradas = tareasIndividuales.filter(t => t.cat === cat);filtradas.forEach(t => {const completada = misTareas[t.name] || false;const item = document.createElement('div');item.className = checklist-item ${completada ? 'completed' : ''};item.innerHTML = `<input type="checkbox" id="check-${t.name}" ${completada ? 'checked' : ''}onchange="cambiarEstadoIndividual('${t.name}', this.checked)">${t.name}`;container.appendChild(item);});});actualizarProgresoCabecera();}function cambiarEstadoIndividual(nombreTarea, marcado) {const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));db[usuarioActivo][nombreTarea] = marcado;localStorage.setItem('crucero_ind_v2', JSON.stringify(db));dibujarTareasIndividuales();}function actualizarProgresoCabecera() {const db = JSON.parse(localStorage.getItem('crucero_ind_v2'));const misTareas = db[usuarioActivo];const total = tareasIndividuales.length;const completadas = Object.values(misTareas).filter(v => v === true).length;const porcentaje = Math.round((completadas / total) * 100);document.getElementById('active-progress-bar').style.width = porcentaje + "%";document.getElementById('active-progress-text').innerText = ${completadas} de ${total} completadas (${porcentaje}%);}// Manejo de Tareas Comunesfunction dibujarTareasGrupales() {const container = document.getElementById('group-tasks-container');container.innerHTML = "";const db = JSON.parse(localStorage.getItem('crucero_grp_v2'));tareasGrupales.forEach(t => {const completada = db[t] || false;const item = document.createElement('div');item.className = checklist-item ${completada ? 'completed' : ''};item.innerHTML = `<input type="checkbox" id="grp-${t}" ${completada ? 'checked' : ''}onchange="cambiarEstadoGrupal('${t}', this.checked)">${t}`;container.appendChild(item);});}function cambiarEstadoGrupal(nombreTarea, marcado) {const db = JSON.parse(localStorage.getItem('crucero_grp_v2'));db[nombreTarea] = marcado;localStorage.setItem('crucero_grp_v2', JSON.stringify(db));dibujarTareasGrupales();}// Ejecución al iniciarinitStorage();ejecutarCuentaRegresiva();dibujarGrillaCompañeros();
+            "Edith", "Lina", "Rocío", "Beatriz", "Carolina", 
+            "Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana", 
+            "Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"
+        ];
+
+        const tareasIndividuales = [
+            { cat: "📄 Documentación Obligatoria", name: "Carnet de vacunas" },
+            { cat: "📄 Documentación Obligatoria", name: "Biomig" },
+            { cat: "📄 Documentación Obligatoria", name: "Vigencia pasaporte" },
+            { cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Curazao" },
+            { cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Aruba" },
+            { cat: "✈️ Logística, Vuelos y Reservas", name: "Pago impuesto aeronáutica" },
+            { cat: "✈️ Logística, Vuelos y Reservas", name: "Propinas" },
+            { cat: "✈️ Logística, Vuelos y Reservas", name: "Vuelos" },
+            { cat: "✈️ Logística, Vuelos y Reservas", name: "Transporte en tierra" },
+            { cat: "✈️ Logística, Vuelos y Reservas", name: "Alojamientos adicionales" },
+            { cat: "👗 Vestuario para Eventos", name: "Pinta blanca" },
+            { cat: "👗 Vestuario para Eventos", name: "Pinta tropical" },
+            { cat: "👗 Vestuario para Eventos", name: "Pinta elegante" },
+            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Equipaje en general" },
+            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Adaptador de toma y multitoma" },
+            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Ventilador individual" },
+            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Gancho de playa para toalla" },
