@@ -226,16 +226,6 @@
             text-decoration: line-through;
             color: #94a3b8;
         }
-
-        .info-card {
-            background: #fffbeb;
-            border-left: 4px solid #fbbf24;
-            padding: 15px;
-            margin-top: 30px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #78350f;
-        }
     </style>
 </head>
 <body>
@@ -245,21 +235,22 @@
         <p>Coordinación y Preparativos de nuestro Crucero</p>
     </header>
     
-    <div class="countdown-container" id="countdown">⏳ ¡Nos vemos el 8 de Noviembre! Preparando motores...</div>
+    <div class="countdown-container" id="countdown">⏳ ¡Nos vemos el 8 de Noviembre!</div>
 
     <div class="container">
+        <!-- Pestañas de Navegación -->
         <div class="nav-tabs">
             <button class="tab-btn active" id="btn-crew" onclick="switchTab('crew')">👥 Listas Personales</button>
             <button class="tab-btn" id="btn-group" onclick="switchTab('group')">📦 Tareas Comunes</button>
         </div>
 
-        <!-- VISTA TRIPULACIÓN -->
+        <!-- SECCIÓN: GRILLA TRIPULACIÓN -->
         <div id="view-crew" class="view-section active">
-            <h2 style="text-align: center; color: var(--dark-navy);">Selecciona tu nombre:</h2>
+            <h2 style="text-align: center; color: var(--dark-navy); margin-bottom: 10px;">Selecciona tu nombre:</h2>
             <div class="crew-grid" id="crew-grid"></div>
         </div>
 
-        <!-- VISTA INDIVIDUAL -->
+        <!-- SECCIÓN: CHECKLIST INDIVIDUAL -->
         <div id="view-individual" class="view-section">
             <button class="back-btn" onclick="switchTab('crew')">⬅ Volver a la lista general</button>
             <div class="profile-header">
@@ -275,7 +266,7 @@
             <div id="individual-tasks-container"></div>
         </div>
 
-        <!-- VISTA GRUPAL -->
+        <!-- SECCIÓN: TAREAS COMPARTIDAS -->
         <div id="view-group" class="view-section">
             <h2 style="color: var(--dark-navy); margin-bottom: 10px;">📦 Tareas Comunes del Grupo</h2>
             <div id="group-tasks-container"></div>
@@ -283,6 +274,7 @@
     </div>
 
     <script>
+        // Datos limpios y estructurados
         const tripulacion = [
             "Edith", "Lina", "Rocío", "Beatriz", "Carolina", 
             "Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana", 
@@ -307,3 +299,7 @@
             { cat: "🧳 Equipaje y Elementos de Cabina", name: "Adaptador de toma y multitoma" },
             { cat: "🧳 Equipaje y Elementos de Cabina", name: "Ventilador individual" },
             { cat: "🧳 Equipaje y Elementos de Cabina", name: "Gancho de playa para toalla" },
+            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Identificador de maleta" }
+        ];
+
+        const tareasGrupales = [
