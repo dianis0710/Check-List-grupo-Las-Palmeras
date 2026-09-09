@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preparativos Crucero</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --dark-navy: #03045e;
+            --ocean-blue: #023e8a;
+            --turquoise: #00b4d8;
+            --coral: #f26419;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background: #caf0f8; color: #333; padding-bottom: 50px; }
+        header { background: linear-gradient(135deg, var(--dark-navy), var(--ocean-blue)); color: white; text-align: center; padding: 30px 20px; border-bottom: 5px solid var(--turquoise); }
+        .countdown { background: #03045e; color: #fff3b0; text-align: center; padding: 10px; font-weight: 600; }
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { background: white; border: 2px solid var(--turquoise); color: var(--dark-navy); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; }
+        .tab-btn.active { background: var(--turquoise); color: white; }
+        .view { display: none; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .view.active { display: block; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 15px; }
+        .card { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; font-weight: 600; color: var(--dark-navy); }
+        .card:hover { border-color: var(--turquoise); background: #f0fdfa; }
+        .back-btn { background: #edf2f7; border: none; padding: 8px 15px; border-radius: 15px; cursor: pointer; margin-bottom: 15px; font-weight: 600; }
+        .item { display: flex; align-items: center; padding: 10px; background: #f8fafc; border-radius: 8px; margin-bottom: 8px; border: 1px solid #edf2f7; cursor: pointer; }
+        .item.completed { background: #edf2f7; text-decoration: line-through; color: #a0aec0; }
+        .item input { margin-right: 12px; width: 18px; height: 18px; }
+        .cat-title { color: var(--ocean-blue); margin: 15px 0 5px; border-left: 4px solid var(--coral); padding-left: 8px; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🚢 ¡Rumbo al Caribe! ⚓</h1>
+        <p>Preparativos de nuestro Crucero</p>
+    </header>
+    <div class="countdown">⏳ ¡Nos vemos el 8 de Noviembre!</div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" id="btn-c" onclick="irA('crew')">👥 Listas Personales</button>
+            <button class="tab-btn" id="btn-g" onclick="irA('group')">📦 Tareas Comunes</button>
+        </div>
+
+        <!-- SECCIÓN PERFILES -->
+        <div id="v-crew" class="view active">
+            <h3 style="margin-bottom: 10px; color: var(--dark-navy);">Selecciona tu nombre:</h3>
+            <div class="grid" id="lista-personas"></div>
+        </div>
+
+        <!-- SECCIÓN CHECKLIST INDIVIDUAL -->
+        <div id="v-ind" class="view">
+            <button class="back-btn" onclick="irA('crew')">⬅ Volver</button>
+            <h2 id="nombre-titulo" style="color: var(--dark-navy); margin-bottom: 15px;">Nombre</h2>
+            <div id="lista-tareas-ind"></div>
+        </div>
+
+        <!-- SECCIÓN TAREAS COMUNES -->
+        <div id="v-group" class="view">
+            <h3 style="margin-bottom: 15px; color: var(--dark-navy);">📦 Tareas Comunes del Grupo</h3>
+            <div id="lista-tareas-grp"></div>
+        </div>
+    </div>
+
+    <script>
+        const tripulacion = ["Edith", "Lina", "Rocío", "Beatriz", "Carolina", "Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana", "Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"];
+        
+        const tareasInd = [
+            { c: "📄 Documentación Obligatoria", n: "Carnet de vacunas" },
+            { c: "📄 Documentación Obligatoria", n: "Biomig" },
+            { c: "📄 Documentación Obligatoria", n: "Vigencia pasaporte" },
+            { c: "📄 Documentación Obligatoria", n: "Formulario y pago por ingreso Curazao" },
+            { c: "📄 Documentación Obligatoria", n: "Formulario y pago por ingreso Aruba" },
+            { c: "✈️ Logística y Reservas", n: "Pago impuesto aeronáutica" },
+            { c: "✈️ Logística y Reservas", n: "Propinas" },
+            { c: "✈️ Logística y Reservas", n: "Vuelos" },
+            { c: "✈️ Logística y Reservas", n: "Transporte en tierra" },
+            { c: "✈️ Logística y Reservas", n: "Alojamientos adicionales" },
+            { c: "👗 Vestuario", n: "Pinta blanca" },
+            { c: "👗 Vestuario", n: "Pinta tropical" },
+            { c: "👗 Vestuario", n: "Pinta elegante" },
+            { c: "🧳 Equipaje", n: "Equipaje en general" },
+            { c: "🧳 Equipaje", n: "Adaptador de toma y multitoma" },
+            { c: "🧳 Equipaje", n: "Ventilador individual" },
+            { c: "🧳 Equipaje", n: "Gancho de playa para toalla" },
+            { c: "🧳 Equipaje", n: "Identificador de maleta" }
+        ];
+
+        const tareasGrp = ["Organizar tours", "Pinta blanca comunitaria", "Pinta tropical comunitaria", "Pinta elegante comunitaria"];
+        let usuario = "";
+
+        // Inicializar memoria limpia sin riesgo de bloqueos
+        if (!localStorage.getItem('data_crucero_ind')) {
+            let estructura = {};
+            tripulacion.forEach(p => { estructura[p] = {}; tareasInd.forEach(t => estructura[p][t.n] = false); });
+            localStorage.setItem('data_crucero_ind', JSON.stringify(estructura));
+        }
+        if (!localStorage.getItem('data_crucero_grp')) {
+            let estructuraG = {};
+            tareasGrp.forEach(t => estructuraG[t] = false);
+            localStorage.setItem('data_crucero_grp', JSON.stringify(estructuraG));
+        }
+
+        function irA(vista) {
+            document.getElementById('v-crew').classList.remove('active');
+            document.getElementById('v-ind').classList.remove('active');
+            document.getElementById('v-group').classList.remove('active');
+            document.getElementById('btn-c').classList.remove('active');
+            document.getElementById('btn-g').classList.remove('active');
+
+            if(vista === 'crew') {
+                document.getElementById('v-crew').classList.add('active');
+                document.getElementById('btn-c').classList.add('active');
+                mostrarTripulacion();
+            } else if(vista === 'group') {
+                document.getElementById('v-group').classList.add('active');
+                document.getElementById('btn-g').classList.add('active');
+                mostrarGrupales();
+            } else if(vista === 'ind') {
+                document.getElementById('v-ind').classList.add('active');
+            }
+        }
+
+        function mostrarTripulacion() {
+            const div = document.getElementById('lista-personas');
+            div.innerHTML = "";
+            tripulacion.forEach(p => {
+                const caja = document.createElement('div');
+                caja.className = "card";
+                caja.innerText = p;
+                caja.onclick = () => { usuario = p; document.getElementById('nombre-titulo').innerText = p; irA('ind'); mostrarIndividuales(); };
+                div.appendChild(caja);
+            });
+        }
+
+        function mostrarIndividuales() {
+            const div = document.getElementById('lista-tareas-ind');
+            div.innerHTML = "";
+            const db = JSON.parse(localStorage.getItem('data_crucero_ind'));
+            const misTareas = db[usuario] || {};
+
+            const categorias = [...new Set(tareasInd.map(t => t.c))];
+            categorias.forEach(cat => {
+                const titulo = document.createElement('h4');
+                titulo.className = "cat-title";
+                titulo.innerText = cat;
+                div.appendChild(titulo);
+
+                tareasInd.filter(t => t.c === cat).forEach(t => {
+                    const hecho = misTareas[t.n] || false;
+                    const item = document.createElement('div');
+                    item.className = `item ${hecho ? 'completed' : ''}`;
+                    item.onclick = () => { db[usuario][t.n] = !db[usuario][t.n]; localStorage.setItem('data_crucero_ind', JSON.stringify(db)); mostrarIndividuales(); };
+                    item.innerHTML = `<input type="checkbox" ${hecho ? 'checked' : ''}> <label>${t.n}</label>`;
+                    div.appendChild(item);
+                });
+            });
+        }
+
+        function mostrarGrupales() {
+            const div = document.getElementById('lista-tareas-grp');
+            div.innerHTML = "";
+            const db = JSON.parse(localStorage.getItem('data_crucero_grp'));
+            tareasGrp.forEach(t => {
+                const hecho = db[t] || false;
+                const item = document.createElement('div');
+                item.className = `item ${hecho ? 'completed' : ''}`;
+                item.onclick = () => { db[t] = !db[t]; localStorage.setItem('data_crucero_grp', JSON.stringify(db)); mostrarGrupales(); };
+                item.innerHTML = `<input type="checkbox" ${hecho ? 'checked' : ''}> <label>${t}</label>`;
+                div.appendChild(item);
+            });
+        }
+
+        // Arrancar directo
+        mostrarTripulacion();
+    </script>
+</body>
+</html>
