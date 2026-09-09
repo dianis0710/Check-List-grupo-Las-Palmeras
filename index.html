@@ -3,229 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora de Viaje: ¡Nos vamos de Crucero!</title>
+    <title>Preparativos Crucero: Las Palmeras</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
-            --ocean-blue: #023e8a;
-            --caribbean-turquoise: #00b4d8;
-            --sand-beach: #fff3b0;
-            --coral-orange: #f26419;
-            --foam-white: #f8f9fa;
             --dark-navy: #03045e;
+            --ocean-blue: #023e8a;
+            --turquoise: #00b4d8;
+            --coral: #f26419;
+            --soft-blue: #caf0f8;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(180deg, #caf0f8 0%, #eaf4f4 100%);
-            color: #333;
-            min-height: 100vh;
-            padding-bottom: 50px;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--ocean-blue) 100%);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom: 5px solid var(--caribbean-turquoise);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
-        header h1 {
-            font-size: 2.3rem;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        header p {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 15px;
-        }
-
-        .countdown-container {
-            background: #03045e;
-            color: #fff3b0;
-            display: block;
-            text-align: center;
-            padding: 12px 20px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 3px solid var(--coral-orange);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .tab-btn {
-            background: white;
-            border: 2px solid var(--caribbean-turquoise);
-            color: var(--dark-navy);
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tab-btn.active {
-            background: var(--caribbean-turquoise);
-            color: white;
-            border-color: var(--caribbean-turquoise);
-        }
-
-        .view-section {
-            display: none;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        .crew-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .crew-card {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        .crew-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--caribbean-turquoise);
-            box-shadow: 0 10px 20px rgba(0,180,216,0.15);
-        }
-
-        .crew-avatar {
-            width: 65px;
-            height: 65px;
-            background: #e0f2fe;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.7rem;
-            margin: 0 auto 12px;
-        }
-
-        .crew-name {
-            font-weight: 600;
-            color: var(--dark-navy);
-            font-size: 1.05rem;
-        }
-
-        .progress-bar-container {
-            background-color: #edf2f7;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 12px;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, var(--caribbean-turquoise) 0%, var(--ocean-blue) 100%);
-            height: 100%;
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        .progress-text {
-            font-size: 0.8rem;
-            color: #718096;
-            margin-top: 6px;
-            font-weight: 500;
-        }
-
-        .back-btn {
-            background: #edf2f7;
-            border: none;
-            color: var(--dark-navy);
-            font-weight: 600;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-
-        .task-group-title {
-            color: var(--dark-navy);
-            margin: 25px 0 12px;
-            font-size: 1.15rem;
-            border-left: 5px solid var(--coral-orange);
-            padding-left: 10px;
-        }
-
-        .checklist-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            background: #f8fafc;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            border: 1px solid #edf2f7;
-        }
-
-        .checklist-item input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            margin-right: 15px;
-            cursor: pointer;
-        }
-
-        .checklist-item label {
-            cursor: pointer;
-            flex-grow: 1;
-            font-size: 0.95rem;
-        }
-
-        .checklist-item.completed {
-            background: #f1f5f9;
-        }
-
-        .checklist-item.completed label {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(180deg, #caf0f8 0%, #eaf4f4 100%); color: #333; padding-bottom: 50px; min-height: 100vh; }
+        header { background: linear-gradient(135deg, var(--dark-navy), var(--ocean-blue)); color: white; text-align: center; padding: 35px 20px; border-bottom: 5px solid var(--turquoise); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2.2rem; margin-bottom: 5px; }
+        .countdown { background: #03045e; color: #fff3b0; text-align: center; padding: 12px; font-weight: 600; font-size: 1.1rem; border-bottom: 3px solid var(--coral); }
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+        .tab-btn { background: white; border: 2px solid var(--turquoise); color: var(--dark-navy); padding: 12px 25px; border-radius: 30px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .tab-btn.active { background: var(--turquoise); color: white; }
+        .view { display: none; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .view.active { display: block; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 15px; padding: 20px; text-align: center; cursor: pointer; font-weight: 600; color: var(--dark-navy); transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .card:hover { border-color: var(--turquoise); transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,180,216,0.15); background: #f0fdfa; }
+        .card-avatar { font-size: 1.8rem; margin-bottom: 8px; }
+        .back-btn { background: #edf2f7; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; margin-bottom: 20px; font-weight: 600; color: var(--dark-navy); }
+        .back-btn:hover { background: #e2e8f0; }
+        .item { display: flex; align-items: center; padding: 12px 15px; background: #f8fafc; border-radius: 10px; margin-bottom: 8px; border: 1px solid #edf2f7; cursor: pointer; }
+        .item:hover { background: #f0fdfa; border-color: #b2f5ea; }
+        .item.completed { background: #f1f5f9; text-decoration: line-through; color: #94a3b8; }
+        .item input { margin-right: 15px; width: 20px; height: 20px; accent-color: var(--turquoise); }
+        .cat-title { color: var(--dark-navy); margin: 25px 0 10px; border-left: 5px solid var(--coral); padding-left: 10px; font-size: 1.15rem; }
     </style>
 </head>
 <body>
@@ -234,72 +43,128 @@
         <h1>🚢 ¡Rumbo al Caribe! ⚓</h1>
         <p>Coordinación y Preparativos de nuestro Crucero</p>
     </header>
-    
-    <div class="countdown-container" id="countdown">⏳ ¡Nos vemos el 8 de Noviembre!</div>
+    <div class="countdown" id="reloj-conteo">⏳ ¡Zarpamos el 8 de Noviembre!</div>
 
     <div class="container">
-        <!-- Pestañas de Navegación -->
-        <div class="nav-tabs">
-            <button class="tab-btn active" id="btn-crew" onclick="switchTab('crew')">👥 Listas Personales</button>
-            <button class="tab-btn" id="btn-group" onclick="switchTab('group')">📦 Tareas Comunes</button>
+        <!-- Pestañas Superiores -->
+        <div class="tabs">
+            <button class="tab-btn active" id="btn-c" onclick="irA('crew')">👥 Listas Personales</button>
+            <button class="tab-btn" id="btn-g" onclick="irA('group')">📦 Tareas Comunes</button>
         </div>
 
-        <!-- SECCIÓN: GRILLA TRIPULACIÓN -->
-        <div id="view-crew" class="view-section active">
+        <!-- SECCIÓN: REPOSITORIO DE TRIPULANTES -->
+        <div id="v-crew" class="view active">
             <h2 style="text-align: center; color: var(--dark-navy); margin-bottom: 10px;">Selecciona tu nombre:</h2>
-            <div class="crew-grid" id="crew-grid"></div>
+            <div class="grid" id="lista-personas"></div>
         </div>
 
-        <!-- SECCIÓN: CHECKLIST INDIVIDUAL -->
-        <div id="view-individual" class="view-section">
-            <button class="back-btn" onclick="switchTab('crew')">⬅ Volver a la lista general</button>
-            <div class="profile-header">
-                <div class="crew-avatar" id="active-avatar">🌴</div>
-                <div style="flex-grow: 1;">
-                    <h2 id="active-user-name">Nombre</h2>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="active-progress-bar"></div>
-                    </div>
-                    <div class="progress-text" id="active-progress-text">0% completado</div>
-                </div>
-            </div>
-            <div id="individual-tasks-container"></div>
+        <!-- SECCIÓN: CHECKLIST DE CADA UNO -->
+        <div id="v-ind" class="view">
+            <button class="back-btn" onclick="irA('crew')">⬅ Volver a la lista general</button>
+            <h2 id="nombre-titulo" style="color: var(--dark-navy); margin-bottom: 20px; border-bottom: 2px solid #edf2f7; padding-bottom: 10px;">Nombre</h2>
+            <div id="lista-tareas-ind"></div>
         </div>
 
-        <!-- SECCIÓN: TAREAS COMPARTIDAS -->
-        <div id="view-group" class="view-section">
+        <!-- SECCIÓN: LOGÍSTICA COMPARTIDA -->
+        <div id="v-group" class="view">
             <h2 style="color: var(--dark-navy); margin-bottom: 10px;">📦 Tareas Comunes del Grupo</h2>
-            <div id="group-tasks-container"></div>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Estas tareas son de interés general para la logística del viaje entero.</p>
+            <div id="lista-tareas-grp"></div>
         </div>
     </div>
 
     <script>
-        // Datos limpios y estructurados
-        const tripulacion = [
-            "Edith", "Lina", "Rocío", "Beatriz", "Carolina", 
-            "Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana", 
-            "Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"
+        // Listado exacto provisto
+        const tripulacion = ["Edith", "Lina", "Rocío", "Beatriz", "Carolina", "Diana (Yo)", "Isabella", "Luis Miguel", "Maria Juliana", "Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"];
+        
+        const tareasInd = [
+            { c: "📄 Documentación Obligatoria", n: "Carnet de vacunas" },
+            { c: "📄 Documentación Obligatoria", n: "Biomig" },
+            { c: "📄 Documentación Obligatoria", n: "Vigencia pasaporte" },
+            { c: "📄 Documentación Obligatoria", n: "Formulario y pago por ingreso Curazao" },
+            { c: "📄 Documentación Obligatoria", n: "Formulario y pago por ingreso Aruba" },
+            { c: "✈️ Logística, Vuelos y Reservas", n: "Pago impuesto aeronáutica" },
+            { c: "✈️ Logística, Vuelos y Reservas", n: "Propinas" },
+            { c: "✈️ Logística, Vuelos y Reservas", n: "Vuelos" },
+            { c: "✈️ Logística, Vuelos y Reservas", n: "Transporte en tierra" },
+            { c: "✈️ Logística, Vuelos y Reservas", n: "Alojamientos adicionales" },
+            { c: "👗 Vestuario para Eventos", n: "Pinta blanca" },
+            { c: "👗 Vestuario para Eventos", n: "Pinta tropical" },
+            { c: "👗 Vestuario para Eventos", n: "Pinta elegante" },
+            { c: "🧳 Equipaje y Elementos de Cabina", n: "Equipaje en general" },
+            { c: "🧳 Equipaje y Elementos de Cabina", n: "Adaptador de toma y multitoma" },
+            { c: "🧳 Equipaje y Elementos de Cabina", n: "Ventilador individual" },
+            { c: "🧳 Equipaje y Elementos de Cabina", n: "Gancho de playa para toalla" },
+            { c: "🧳 Equipaje y Elementos de Cabina", n: "Identificador de maleta" }
         ];
 
-        const tareasIndividuales = [
-            { cat: "📄 Documentación Obligatoria", name: "Carnet de vacunas" },
-            { cat: "📄 Documentación Obligatoria", name: "Biomig" },
-            { cat: "📄 Documentación Obligatoria", name: "Vigencia pasaporte" },
-            { cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Curazao" },
-            { cat: "📄 Documentación Obligatoria", name: "Formulario y pago por ingreso Aruba" },
-            { cat: "✈️ Logística, Vuelos y Reservas", name: "Pago impuesto aeronáutica" },
-            { cat: "✈️ Logística, Vuelos y Reservas", name: "Propinas" },
-            { cat: "✈️ Logística, Vuelos y Reservas", name: "Vuelos" },
-            { cat: "✈️ Logística, Vuelos y Reservas", name: "Transporte en tierra" },
-            { cat: "✈️ Logística, Vuelos y Reservas", name: "Alojamientos adicionales" },
-            { cat: "👗 Vestuario para Eventos", name: "Pinta blanca" },
-            { cat: "👗 Vestuario para Eventos", name: "Pinta tropical" },
-            { cat: "👗 Vestuario para Eventos", name: "Pinta elegante" },
-            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Equipaje en general" },
-            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Adaptador de toma y multitoma" },
-            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Ventilador individual" },
-            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Gancho de playa para toalla" },
-            { cat: "🧳 Equipaje y Elementos de Cabina", name: "Identificador de maleta" }
-        ];
+        const tareasGrp = ["Organizar tours", "Pinta blanca comunitaria", "Pinta tropical comunitaria", "Pinta elegante comunitaria"];
+        let usuarioActivo = "";
 
-        const tareasGrupales = [
+        // Inicializar bases de datos locales limpias
+        if (!localStorage.getItem('db_crucero_ind_v4')) {
+            let estructura = {};
+            tripulacion.forEach(p => { estructura[p] = {}; tareasInd.forEach(t => estructura[p][t.n] = false); });
+            localStorage.setItem('db_crucero_ind_v4', JSON.stringify(estructura));
+        }
+        if (!localStorage.getItem('db_crucero_grp_v4')) {
+            let estructuraG = {};
+            tareasGrp.forEach(t => estructuraG[t] = false);
+            localStorage.setItem('db_crucero_grp_v4', JSON.stringify(estructuraG));
+        }
+
+        // Cuenta regresiva ultra estable
+        function ponerReloj() {
+            try {
+                const destino = new Date("November 8, 2026 00:00:00").getTime();
+                const ahora = new Date().getTime();
+                const resto = destino - ahora;
+                if (resto > 0) {
+                    const dias = Math.floor(resto / (1000 * 60 * 60 * 24));
+                    document.getElementById("reloj-conteo").innerText = `⏳ ¡Zarpamos el 8 de Noviembre! Faltan solo ${dias} días para la aventura`;
+                }
+            } catch(e) {}
+        }
+
+        // Cambiar entre pantallas de la aplicación
+        function irA(vista) {
+            document.getElementById('v-crew').classList.remove('active');
+            document.getElementById('v-ind').classList.remove('active');
+            document.getElementById('v-group').classList.remove('active');
+            document.getElementById('btn-c').classList.remove('active');
+            document.getElementById('btn-g').classList.remove('active');
+
+            if(vista === 'crew') {
+                document.getElementById('v-crew').classList.add('active');
+                document.getElementById('btn-c').classList.add('active');
+                mostrarTripulacion();
+            } else if(vista === 'group') {
+                document.getElementById('v-group').classList.add('active');
+                document.getElementById('btn-g').classList.add('active');
+                mostrarGrupales();
+            } else if(vista === 'ind') {
+                document.getElementById('v-ind').classList.add('active');
+            }
+        }
+
+        // Dibujar las tarjetas con los nombres de todos
+        function mostrarTripulacion() {
+            const div = document.getElementById('lista-personas');
+            if(!div) return;
+            div.innerHTML = "";
+            
+            tripulacion.forEach(p => {
+                let avatar = "🌴";
+                if(p.includes("Yo")) avatar = "🌊";
+                if(["Luis Miguel", "Andres", "Armando"].includes(p)) avatar = "⚓";
+
+                const caja = document.createElement('div');
+                caja.className = "card";
+                caja.innerHTML = `<div class="card-avatar">${avatar}</div><div>${p}</div>`;
+                caja.onclick = () => { 
+                    usuarioActivo = p; 
+                    document.getElementById('nombre-titulo').innerText = "📋 Lista de " + p; 
+                    irA('ind'); 
+                    mostrarIndividuales(); 
+                };
+
