@@ -424,6 +424,12 @@
           <li>La habitación (camarote) se entrega aprox. a las <strong>4:30 p.m.</strong></li>
           <li>Llevar un suéter para las noches.</li>
           <li>Un termo se puede comprar a bordo por <strong>$5 USD</strong>, o llevar el propio.</li>
+          <li>Bastón (para personas con movilidad reducida).</li>
+          <li>Sombrilla.</li>
+          <li>Dólares de baja denominación.</li>
+          <li>Botiquín con Mareol, curitas y otros medicamentos que puedas necesitar en caso de alguna situación de salud.</li>
+          <li>Bolsas ziploc.</li>
+          <li>Alimentación suficiente para aguantar la fila de embarque, o un desayuno previo abundante.</li>
         </ul>
       </div>
     </details>
@@ -440,7 +446,7 @@
           <li>Hay que anexar tarjeta de crédito/débito (se recomienda crédito, es más fácil para devoluciones). Cada quien puede registrar la suya, o una sola para todos.</li>
           <li>Aceptar términos y condiciones.</li>
           <li><strong>Botón / video del simulacro:</strong> se habilita el día antes de embarcar, hay que verlo. El día del abordaje toca acercarse físicamente al punto de encuentro del simulacro — es obligatorio para que el barco pueda zarpar. Al completarlo, se genera el pase de abordar.</li>
-          <li>Una semana antes se habilita la habitación y el horario de abordaje. Evitar el horario de medio día (casi no hay sombra); llevar agua o usar la estación de hidratación.</li>
+          <li>Una semana antes se habilita elegir habitación (aleatoria) y el horario de abordaje. Evitar el horario de medio día (casi no hay sombra); llevar agua o usar la estación de hidratación.</li>
           <li>Las ventas / cambios se cierran <strong>7 días antes</strong> de zarpar.</li>
         </ul>
       </div>
@@ -453,8 +459,7 @@
           <li>Pasaporte vigente — no debe vencerse dentro de los 6 meses siguientes al viaje.</li>
           <li>Carnet de vacunación internacional — no aplica para mayores de 60 años, a ellos les dan un certificado en su lugar.</li>
           <li>Permiso de menores de edad (solo si el menor no viaja con ambos padres).</li>
-          <li>2 copias del registro civil autenticado, con vigencia no mayor a 1 mes (menores de edad).</li>
-          <li>No olvides llenar los formularios de ingreso a la isla en caso de aplicar</li>
+          <li>2 copias del registro civil autenticado, con vigencia no mayor a 1 mes.</li>
           <li>Pago del impuesto de salida del país (recomendado hacerlo una semana antes): <a href="https://www.aerocivil.gov.co/publicaciones/3433/pagos-en-linea-impuesto-timbre-para-viajeros-de-cruceros/" target="_blank" rel="noopener">Pagos en línea – Impuesto Timbre para viajeros de cruceros (Aerocivil)</a>.</li>
         </ul>
       </div>
@@ -472,7 +477,7 @@
         </ul>
         <h4>Paquete de bebidas</h4>
         <ul>
-          <li>Incluye bebidas alcohólicas, es por cabina (el grupo ya lo tiene) y se cobran propinas extra sobre el consumo.</li>
+          <li>Incluye bebidas alcohólicas, es por cabina (el grupo ya lo tiene) y se cobra propina extra sobre el consumo.</li>
         </ul>
         <h4>Toallas</h4>
         <ul>
@@ -507,7 +512,7 @@
       <div class="reco-body">
         <ul>
           <li>Estar de vuelta en el barco <strong>1 hora antes</strong> de la hora de embarque anunciada.</li>
-          <li>Puedes comprar bebidas alcohólicas en puerto para subirlas al barco: las decomisan hasta el día antes de terminar el crucero.</li>
+          <li>No comprar bebidas alcohólicas en puerto para subirlas al barco: las decomisan hasta el día antes de terminar el crucero.</li>
           <li>Llevar una bolsa ziploc para bajar algo de comer (un sanduchito) — no se permite bajar fruta.</li>
           <li><strong>Desembarque final:</strong> la app avisa el horario según el grupo asignado. Si alguien tiene vuelo temprano, se puede hablar con administración para desembarcar antes.</li>
         </ul>
@@ -549,7 +554,7 @@
       <summary>🏝️ Curazao</summary>
       <div class="reco-body">
         <ul>
-          <li>Playa Piscado.</li>
+          <li>Playa Pescado.</li>
           <li>Cuevas de Hato.</li>
           <li>Fort Nassau — restaurante esencial, muy recomendado.</li>
           <li>Punda (centro histórico de Willemstad).</li>
@@ -567,7 +572,7 @@
           <div class="itinerary-day"><span class="d">Día 4</span><span class="loc">Willemstad, Curazao</span><span class="t">mié 11 nov · 8:30 a.m. – 5:30 p.m.</span></div>
           <div class="itinerary-day"><span class="d">Día 5</span><span class="loc">Día de crucero</span><span class="t">jue 12 nov</span></div>
           <div class="itinerary-day"><span class="d">Día 6</span><span class="loc">Día de crucero</span><span class="t">vie 13 nov</span></div>
-          <div class="itinerary-day"><span class="d">Día 7</span><span class="loc">Llegada a Panamá</span><span class="t">sáb 14 nov · partida 7:30 a.m.</span></div>
+          <div class="itinerary-day"><span class="d">Día 7</span><span class="loc">Llegada a Cartagena</span><span class="t">sáb 14 nov · partida 7:30 a.m.</span></div>
         </div>
       </div>
     </details>
@@ -580,16 +585,19 @@
   const STORAGE_PREFIX = 'crucero_v1_';
 
   const tripulacion = [
-    "Edith", "Lina", "Rocío", "Viviana", "Beatriz", "Carolina",
-    "Diana", "Isabella", "Luis Miguel", "Juli Cardona",
-    "Andres", "Rosa", "Martha", "Juli Sobri", "Luz Elena", "Armando"
+    "Edith", "Lina", "Rocío", "Beatriz", "Carolina",
+    "Diana", "Isabella", "Luis Miguel", "Maria Juliana",
+    "Andres", "Rosa", "Martha", "Juliana", "Luz Elena", "Armando"
   ];
 
   const tareasIndividuales = [
-    { cat: "📄 Documentación obligatoria", name: "Carnet de vacunas (no aplica a mayores de 60 años, en su defecto el certificado)" },
+    { cat: "📄 Documentación obligatoria", name: "Carnet de vacunas (no aplica a mayores de 60 años)" },
     { cat: "📄 Documentación obligatoria", name: "Biomig" },
     { cat: "📄 Documentación obligatoria", name: "Vigencia pasaporte (mínimo 6 meses)" },
-    { cat: "📄 Documentación obligatoria", name: "2 copias del registro civil autenticado (máx. 1 mes para menores de edad)" },
+    { cat: "📄 Documentación obligatoria", name: "Formulario y pago por ingreso a Curazao" },
+    { cat: "📄 Documentación obligatoria", name: "Formulario y pago por ingreso a Aruba" },
+    { cat: "📄 Documentación obligatoria", name: "Permiso de menores de edad (si aplica)" },
+    { cat: "📄 Documentación obligatoria", name: "2 copias del registro civil autenticado (máx. 1 mes)" },
     { cat: "📱 Check-in y app del crucero", name: "Descargar app del crucero" },
     { cat: "📱 Check-in y app del crucero", name: "Hacer check-in en línea (se habilita 45 días antes)" },
     { cat: "📱 Check-in y app del crucero", name: "Registrar tarjeta de crédito/débito" },
@@ -601,14 +609,14 @@
     { cat: "✈️ Logística, vuelos y reservas", name: "Vuelos" },
     { cat: "✈️ Logística, vuelos y reservas", name: "Transporte en tierra" },
     { cat: "✈️ Logística, vuelos y reservas", name: "Alojamientos adicionales" },
-    { cat: "👗 Vestuario para eventos", name: "Pinta blanca (1)" },
-    { cat: "👗 Vestuario para eventos", name: "Pinta tropical (1)" },
-    { cat: "👗 Vestuario para eventos", name: "Pinta elegante (2)" },
+    { cat: "👗 Vestuario para eventos", name: "Pinta blanca" },
+    { cat: "👗 Vestuario para eventos", name: "Pinta tropical" },
+    { cat: "👗 Vestuario para eventos", name: "Pinta elegante" },
     { cat: "🧳 Equipaje y elementos de cabina", name: "Equipaje en general" },
     { cat: "🧳 Equipaje y elementos de cabina", name: "Adaptador de toma y multitoma" },
-    { cat: "🧳 Equipaje y elementos de cabina", name: "Ventilador individual(opcional)" },
-    { cat: "🧳 Equipaje y elementos de cabina", name: "Gancho de playa para toalla(opcional)" },
-    { cat: "🧳 Equipaje y elementos de cabina", name: "Identificador de maleta(opcional)" },
+    { cat: "🧳 Equipaje y elementos de cabina", name: "Ventilador individual" },
+    { cat: "🧳 Equipaje y elementos de cabina", name: "Gancho de playa para toalla" },
+    { cat: "🧳 Equipaje y elementos de cabina", name: "Identificador de maleta" },
     { cat: "🧳 Equipaje y elementos de cabina", name: "Suéter para las noches" },
     { cat: "🧳 Equipaje y elementos de cabina", name: "Termo (opcional)" }
   ];
@@ -617,8 +625,9 @@
   // Agrega aquí más ítems si tu grupo tiene otras tareas compartidas.
   const tareasGrupales = [
     { name: "Organizar tours en Aruba y Curazao" },
-    { name: "Comprar las gorras" },
-    { name: "Contratar seguro de viaje" }
+    { name: "Confirmar paquete de bebidas por cabina" },
+    { name: "Contratar seguro de viaje" },
+    { name: "Revisar el seguro de la tarjeta de crédito que tienes actualmente y qué cubre" }
   ];
 
   let currentUser = null;
